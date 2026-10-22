@@ -75,7 +75,7 @@ if st.sidebar.button("Jalankan Simulasi"):
     st.success("Simulasi Selesai!")
     col1, col2 = st.columns(2)
     with col1:
-        st.metric(label="🎯 Estimasi Total Engagement", value=f"{round(pred_engagement, 2):,.2f} interaksi")
+        st.metric(label="🎯 Estimasi Total Engagement", value=f"{int(round(pred_engagement)):,} interaksi")
     
     with col2.expander("Lihat Detail Parameter Skenario"):
         st.json({
