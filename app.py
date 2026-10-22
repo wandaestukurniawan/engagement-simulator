@@ -1,6 +1,8 @@
 import joblib
 import pandas as pd
 import streamlit as st
+import matplotlib.pyplot as plt
+import xgboost as xgb
 
 # Konfigurasi halaman Streamlit
 st.set_page_config(page_title="Content Engagement Simulator", layout="wide")
@@ -89,3 +91,16 @@ if st.sidebar.button("Jalankan Simulasi"):
         })
 else:
     st.info("👈 Silakan atur parameter di sidebar sebelah kiri, lalu klik tombol **Jalankan Simulasi**.")
+
+
+st.markdown("---")
+st.subheader("📊 Analisis Model: Feature Importance")
+st.markdown("Grafik ini menunjukkan faktor atau fitur apa saja yang paling besar pengaruhnya dalam menentukan estimasi *engagement* konten Anda.")
+
+# Membuat plot feature importance XGBoost 
+fig, ax = plt.subplots(figsize=(10, 6))
+xgb.plot_importance(model, ax=ax, max_num_features=10, height=0.6, color='skyblue')
+ax.set_title("Top 10 Feature Importance", fontsize=14, fontweight='bold')
+
+# Tampilkan grafik 
+st.pyplot(fig)
