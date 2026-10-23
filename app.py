@@ -15,6 +15,20 @@ def load_artifacts():
 
 model, model_columns = load_artifacts()
 
+# --- DEFINISI BATAS KUARTIL ---
+Q1, Q2, Q3 = 100, 250, 500  
+
+def get_engagement_category(score):
+    if score <= Q1:
+        return "Low (Kuartil 1)", "🔴"
+    elif score <= Q2:
+        return "Medium-Low (Kuartil 2)", "🟡"
+    elif score <= Q3:
+        return "Medium-High (Kuartil 3)", "🟢"
+    else:
+        return "High (Kuartil 4)", "🚀"
+
+
 st.title("🎯 What-If Simulator: Prediksi Total Engagement Konten")
 st.markdown("Ubah parameter konten di bawah ini untuk melihat estimasi interaksi secara instan berdasarkan model **XGBoost**.")
 
@@ -72,13 +86,17 @@ if st.sidebar.button("Jalankan Simulasi"):
     # Prediksi menggunakan model
     pred_engagement = model.predict(skenario)[0]
     pred_engagement = max(0, pred_engagement)
+
+    # Evaluasi Kategori Kuartil
+    kategori_label, emoji_status = get_engagement_category(final_score)
     
     # Tampilkan Hasil di Halaman Utama
     st.success("Simulasi Selesai!")
     col1, col2 = st.columns(2)
     with col1:
         st.metric(label="🎯 Estimasi Total Engagement", value=f"{int(round(pred_engagement)):,} interaksi")
-    
+        st.markdown(f"### Kategori Performa: {emoji_status} **{kategori_label}**")
+        
     with col2.expander("Lihat Detail Parameter Skenario"):
         st.json({
             "Content_Format": content_format,
