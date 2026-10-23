@@ -88,6 +88,7 @@ if st.sidebar.button("Jalankan Simulasi"):
     pred_engagement = max(0, pred_engagement)
 
     # Evaluasi Kategori Kuartil
+    final_score = int(round(pred_engagement))
     kategori_label, emoji_status = get_engagement_category(final_score)
     
     # Tampilkan Hasil di Halaman Utama
