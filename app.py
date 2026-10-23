@@ -11,12 +11,16 @@ st.set_page_config(page_title="Content Engagement Simulator", layout="wide")
 def load_artifacts():
     model = joblib.load('xgb_model.pkl')
     columns = joblib.load('model_columns.pkl')
-    return model, columns
+    
+    # Load kuartil otomatis dari file quartiles.pkl yang sudah di-upload
+    quartiles = joblib.load('quartiles.pkl')
+    Q1 = quartiles['Q1']
+    Q2 = quartiles['Q2']
+    Q3 = quartiles['Q3']
+    
+    return model, columns, Q1, Q2, Q3
 
-model, model_columns = load_artifacts()
-
-# --- DEFINISI BATAS KUARTIL ---
-Q1, Q2, Q3 = 100, 250, 500  
+model, model_columns, Q1, Q2, Q3 = load_artifacts()
 
 def get_engagement_category(score):
     if score <= Q1:
