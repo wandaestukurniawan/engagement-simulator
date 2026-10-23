@@ -24,13 +24,13 @@ model, model_columns, Q1, Q2, Q3 = load_artifacts()
 
 def get_engagement_category(score):
     if score <= Q1:
-        return "Low (Kuartil 1)", "🔴"
+        return "Low Engagement", "🔴"
     elif score <= Q2:
-        return "Medium-Low (Kuartil 2)", "🟡"
+        return "Standard Performance", "🟡"
     elif score <= Q3:
-        return "Medium-High (Kuartil 3)", "🟢"
+        return "Low Engagement", "🟢"
     else:
-        return "High (Kuartil 4)", "🚀"
+        return "Potential Viral", "🚀"
 
 
 st.title("🎯 What-If Simulator: Prediksi Total Engagement Konten")
