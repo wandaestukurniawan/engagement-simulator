@@ -28,7 +28,7 @@ def get_engagement_category(score):
     elif score <= Q2:
         return "Standard Performance", "🟡"
     elif score <= Q3:
-        return "Low Engagement", "🟢"
+        return "High Engagement", "🟢"
     else:
         return "Potential Viral", "🚀"
 
